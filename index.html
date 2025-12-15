@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>رسالة حب إلى امارة</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:#ffc6df;
+  font-family:"Cairo",sans-serif;
+  overflow:hidden;
+}
+
+/* شاشة البداية */
+.start{
+  position:fixed;inset:0;
+  background:radial-gradient(circle,#ffe6f3,#ffb5d6);
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;z-index:5;text-align:center;
+}
+.start p{
+  font-size:1.7rem;color:#8b0044;
+  font-weight:900;margin-bottom:18px;
+}
+.start button{
+  padding:14px 46px;border:none;border-radius:999px;
+  background:#ff4d88;color:white;
+  font-size:1.3rem;font-weight:700;
+  cursor:pointer;
+  box-shadow:0 6px 18px rgba(0,0,0,.22);
+  transition:.25s;
+}
+.start button:hover{
+  transform:translateY(-2px);
+}
+
+/* شاشة النص */
+.text-screen{
+  position:fixed;inset:0;
+  background:rgba(255,255,255,.96);
+  display:none;align-items:center;justify-content:center;
+  padding:20px;z-index:4;
+}
+.text-box{
+  width:100%;max-width:900px;
+  background:white;
+  border-radius:28px;
+  padding:30px 22px;
+  box-shadow:0 20px 40px rgba(0,0,0,.24);
+  animation:showTxt .8s ease forwards;
+}
+@keyframes showTxt{
+  from{opacity:0;transform:scale(1.08);}
+  to{opacity:1;transform:scale(1);}
+}
+
+#typing{
+  font-size:1.55rem;
+  font-weight:900;
+  color:#7a003a;
+  line-height:2.2;
+  white-space:pre-wrap;
+}
+
+@media(max-width:600px){
+  #typing{font-size:1.3rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- شاشة البداية -->
+<div class="start" id="startScreen">
+  <p id="startText">انتي امارة حلوة؟ 💗</p>
+  <button id="startBtn">نعم</button>
+</div>
+
+<!-- شاشة النص -->
+<div class="text-screen" id="textScreen">
+  <div class="text-box">
+    <div id="typing"></div>
+  </div>
+</div>
+
+<script>
+const startScreen = document.getElementById("startScreen");
+const startBtn    = document.getElementById("startBtn");
+const startText   = document.getElementById("startText");
+const textScreen  = document.getElementById("textScreen");
+const typingEl    = document.getElementById("typing");
+
+let step = 0;
+
+const fullText = `مع أول دقيقة من سنة جديدة، ليلة 1 يناير،
+حبيت أبدأ اللحظة بشي يخصچ…
+
+من زمان وأنا أحچي ويا نفسي عنچ،
+شلون حضورچ يهدّي گلبي،
+وشلون ضحكتچ تصير مثل نسمة هوى
+تمشي على روحي وتريحني بدون ما أحس.
+
+يمكن ما چنتي تحسبين حساب هالمشاعر،
+بس كل يوم يمر أحس نفسي أتعلق بيچ أكثر،
+وأبتعد عن كل العالم.
+
+هسه دخلت السنة الجديدة…
+وأني أدخلها وياي كلمة
+ما گدرت أخليها جوة صدري بعد.
+
+مشاعري مو صدفة،
+ولا مجرد لحظة.
+هذا إحساس نظيف،
+صادق،
+يكبر وياي يوم بعد يوم.
+
+أني أحبچ…
+ومو بس أحبچ،
+خليتچ أول خاطر بداخلي،
+وأول خطوة أتمنى أمشيها بهالسنة.
+
+إذا گلبچ يسمع هالكلمة هسه،
+فهاي الدقيقة مو بس بداية سنة…
+هاي بداية شي يشبهچ،
+نظيف،
+حلو،
+ويستاهل نبدأه سوى…
+
+أحبچ امارة ❤️`;
+
+let index = 0;
+let speed = 90; // كتابة هادئة
+
+function typeText(){
+  if(index < fullText.length){
+    typingEl.textContent += fullText.charAt(index);
+    index++;
+    setTimeout(typeText, speed);
+  }
+}
+
+startBtn.addEventListener("click", () => {
+  step++;
+
+  if(step === 1){
+    startText.textContent = "جاهزة تسمعين شي من قلبي؟";
+    startBtn.textContent = "جاهزة";
+  }else{
+    startScreen.style.display = "none";
+    textScreen.style.display = "flex";
+    typeText();
+  }
+});
+</script>
+
+</body>
+</html>
